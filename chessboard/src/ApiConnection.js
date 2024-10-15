@@ -1,12 +1,10 @@
-const getMove = async (gameId) => {
+const api = 'https://54.252.28.117'
+const local = 'http://localhost:8080'
+const url = local;
+
+const getMove = async (gameId, playerMove) => {
     try {
-        const playerMove = {
-            oldRow: 6,
-            oldCol: 4,
-            newRow: 4,
-            newCol: 4
-        };
-        const response = await fetch(`http://54.252.28.117:8080/move?id=${gameId}`, {
+        const response = await fetch(`${url}/move?id=${gameId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +25,7 @@ const getMove = async (gameId) => {
 };
 const startNewGame = async () => {
     try {
-        const response = await fetch('http://54.252.28.117:8080/new-game', {
+        const response = await fetch(`${url}/new-game`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,5 +43,6 @@ const startNewGame = async () => {
         console.error('Error starting new game:', error);
     }
 };
+const exports ={startNewGame, getMove}
 
-export default {startNewGame, getMove};
+export default exports;

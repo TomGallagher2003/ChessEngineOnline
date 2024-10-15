@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Chessboard } from 'react-chessboard';
 import { Chess } from 'chess.js';
 import apiConnection from './ApiConnection';
-import convertToAlgebraic from "./parsing";
+import parsing from "./parsing";
 
 const { startNewGame, getMove } = apiConnection;
+const { convertToAlgebraic, parseMoveToCoords } = parsing
 const gameId = await startNewGame();
 
 function ChessGame() {
@@ -23,14 +24,16 @@ function ChessGame() {
              if (move) {
                  setPosition(game.fen());
              }
-             const engineMove = await getMove(gameId);
+             const parsedMove = parseMoveToCoords(move);
+
+             const engineMove = await getMove(gameId, parsedMove);
              const fromSquare = convertToAlgebraic(engineMove.oldRow, engineMove.oldCol);
              const toSquare = convertToAlgebraic(engineMove.newRow, engineMove.newCol);
 
              game.move({
                  from: fromSquare,
                  to: toSquare,
-                 promotion: 'q', // Handle promotion if needed
+                 promotion: 'q', // auto queen
              });
              setPosition(game.fen());
          } catch(error){
@@ -51,15 +54,30 @@ function ChessGame() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            textAlign: "center"
+            textAlign: "center",
+            width: "100%",
+            height: "100vh",
+            backgroundImage: `url(${process.env.PUBLIC_URL + '/background.png'})`,
+            backgroundSize: "cover"
         }}>
-            <h1>Chess Game</h1>
-            <Chessboard
-                boardWidth={400}
-                position={position}
-                onPieceDrop={onDrop}
-                isDraggablePiece={isDraggablePiece}
-            />
+            <h1 style={{
+                paddingBottom: "5px",
+                color: "white",
+                fontFamily: "'Courier New', Courier, monospace",
+                fontSize: "50px"
+            }}>
+                Play The Engine!
+            </h1>
+
+            <div>
+                <Chessboard
+                    boardWidth={530}
+                    position={position}
+                    onPieceDrop={onDrop}
+                    isDraggablePiece={isDraggablePiece}
+                />
+            </div>
+
         </div>
     );
 }
