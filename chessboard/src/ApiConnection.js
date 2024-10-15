@@ -1,6 +1,6 @@
 const api = 'https://54.252.28.117'
 const local = 'http://localhost:8080'
-const url = local;
+const url = api;
 
 const getMove = async (gameId, playerMove) => {
     try {

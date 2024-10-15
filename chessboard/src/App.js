@@ -71,7 +71,7 @@ function ChessGame() {
 
             <div>
                 <Chessboard
-                    boardWidth={530}
+                    boardWidth={window.innerWidth > 700 ? 530 : 285}
                     position={position}
                     onPieceDrop={onDrop}
                     isDraggablePiece={isDraggablePiece}
