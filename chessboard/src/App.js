@@ -61,6 +61,7 @@ function ChessGame() {
             backgroundSize: "cover"
         }}>
             <h1 style={{
+                marginTop: window.innerWidth > 700 ? 0 : "-35vh",
                 paddingBottom: "5px",
                 color: "white",
                 fontFamily: "'Courier New', Courier, monospace",
@@ -71,7 +72,7 @@ function ChessGame() {
 
             <div>
                 <Chessboard
-                    boardWidth={window.innerWidth > 700 ? 530 : 285}
+                    boardWidth={window.innerWidth > 700 ? 530 : 320}
                     position={position}
                     onPieceDrop={onDrop}
                     isDraggablePiece={isDraggablePiece}

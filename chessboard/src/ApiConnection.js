@@ -1,4 +1,4 @@
-const api = 'https://54.252.28.117'
+const api = 'https://tomsapi.hopto.org'
 const local = 'http://localhost:8080'
 const url = api;
 
